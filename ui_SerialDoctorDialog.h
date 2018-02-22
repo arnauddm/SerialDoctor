@@ -45,30 +45,32 @@ public:
     QTextEdit *OutputTextEdit;
     QGroupBox *ConnectionGroupBox;
     QGridLayout *gridLayout;
-    QLabel *label_6;
-    QLineEdit *PortNameLineEdit;
-    QComboBox *DataBitsComboBox;
-    QLabel *label_2;
+    QSpacerItem *horizontalSpacer;
     QLabel *label;
-    QLabel *label_5;
-    QComboBox *StopBitsComboBox;
-    QSpacerItem *horizontalSpacer_2;
-    QComboBox *FlowControlComboBox;
-    QLabel *label_3;
-    QLabel *label_4;
+    QPushButton *OpenConnectionPushButton;
+    QLabel *label_6;
     QComboBox *BaudRateComboBox;
     QComboBox *ParityComboBox;
-    QPushButton *OpenConnectionPushButton;
-    QSpacerItem *horizontalSpacer;
+    QLineEdit *PortNameLineEdit;
+    QLabel *label_3;
+    QLabel *label_4;
+    QSpacerItem *horizontalSpacer_2;
+    QComboBox *FlowControlComboBox;
+    QLabel *label_5;
+    QLabel *label_2;
+    QComboBox *StopBitsComboBox;
+    QComboBox *DataBitsComboBox;
+    QLabel *label_8;
+    QComboBox *ModeComboBox;
     QGroupBox *groupBox;
     QGridLayout *gridLayout_4;
     QSpacerItem *horizontalSpacer_5;
-    QSpacerItem *horizontalSpacer_4;
-    QSpacerItem *horizontalSpacer_6;
-    QLabel *label_7;
+    QPushButton *SendCommandPushButton;
     QSpacerItem *horizontalSpacer_3;
-    QPushButton *pushButton;
-    QLineEdit *lineEdit;
+    QSpacerItem *horizontalSpacer_6;
+    QLineEdit *CommandlineEdit;
+    QSpacerItem *horizontalSpacer_4;
+    QLabel *label_7;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -124,32 +126,9 @@ public:
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        label_6 = new QLabel(ConnectionGroupBox);
-        label_6->setObjectName(QStringLiteral("label_6"));
-        label_6->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        horizontalSpacer = new QSpacerItem(70, 20, QSizePolicy::Preferred, QSizePolicy::Minimum);
 
-        gridLayout->addWidget(label_6, 5, 1, 1, 1);
-
-        PortNameLineEdit = new QLineEdit(ConnectionGroupBox);
-        PortNameLineEdit->setObjectName(QStringLiteral("PortNameLineEdit"));
-
-        gridLayout->addWidget(PortNameLineEdit, 0, 2, 1, 1);
-
-        DataBitsComboBox = new QComboBox(ConnectionGroupBox);
-        DataBitsComboBox->addItem(QString());
-        DataBitsComboBox->addItem(QString());
-        DataBitsComboBox->addItem(QString());
-        DataBitsComboBox->addItem(QString());
-        DataBitsComboBox->addItem(QString());
-        DataBitsComboBox->setObjectName(QStringLiteral("DataBitsComboBox"));
-
-        gridLayout->addWidget(DataBitsComboBox, 2, 2, 1, 1);
-
-        label_2 = new QLabel(ConnectionGroupBox);
-        label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-
-        gridLayout->addWidget(label_2, 1, 1, 1, 1);
+        gridLayout->addItem(horizontalSpacer, 2, 0, 1, 1);
 
         label = new QLabel(ConnectionGroupBox);
         label->setObjectName(QStringLiteral("label"));
@@ -157,33 +136,31 @@ public:
 
         gridLayout->addWidget(label, 0, 1, 1, 1);
 
-        label_5 = new QLabel(ConnectionGroupBox);
-        label_5->setObjectName(QStringLiteral("label_5"));
-        label_5->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        OpenConnectionPushButton = new QPushButton(ConnectionGroupBox);
+        OpenConnectionPushButton->setObjectName(QStringLiteral("OpenConnectionPushButton"));
 
-        gridLayout->addWidget(label_5, 4, 1, 1, 1);
+        gridLayout->addWidget(OpenConnectionPushButton, 7, 2, 1, 1);
 
-        StopBitsComboBox = new QComboBox(ConnectionGroupBox);
-        StopBitsComboBox->addItem(QString());
-        StopBitsComboBox->addItem(QString());
-        StopBitsComboBox->addItem(QString());
-        StopBitsComboBox->addItem(QString());
-        StopBitsComboBox->setObjectName(QStringLiteral("StopBitsComboBox"));
+        label_6 = new QLabel(ConnectionGroupBox);
+        label_6->setObjectName(QStringLiteral("label_6"));
+        label_6->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(StopBitsComboBox, 4, 2, 1, 1);
+        gridLayout->addWidget(label_6, 5, 1, 1, 1);
 
-        horizontalSpacer_2 = new QSpacerItem(70, 20, QSizePolicy::Preferred, QSizePolicy::Minimum);
+        BaudRateComboBox = new QComboBox(ConnectionGroupBox);
+        BaudRateComboBox->setObjectName(QStringLiteral("BaudRateComboBox"));
 
-        gridLayout->addItem(horizontalSpacer_2, 2, 3, 1, 1);
+        gridLayout->addWidget(BaudRateComboBox, 1, 2, 1, 1);
 
-        FlowControlComboBox = new QComboBox(ConnectionGroupBox);
-        FlowControlComboBox->addItem(QString());
-        FlowControlComboBox->addItem(QString());
-        FlowControlComboBox->addItem(QString());
-        FlowControlComboBox->addItem(QString());
-        FlowControlComboBox->setObjectName(QStringLiteral("FlowControlComboBox"));
+        ParityComboBox = new QComboBox(ConnectionGroupBox);
+        ParityComboBox->setObjectName(QStringLiteral("ParityComboBox"));
 
-        gridLayout->addWidget(FlowControlComboBox, 3, 2, 1, 1);
+        gridLayout->addWidget(ParityComboBox, 5, 2, 1, 1);
+
+        PortNameLineEdit = new QLineEdit(ConnectionGroupBox);
+        PortNameLineEdit->setObjectName(QStringLiteral("PortNameLineEdit"));
+
+        gridLayout->addWidget(PortNameLineEdit, 0, 2, 1, 1);
 
         label_3 = new QLabel(ConnectionGroupBox);
         label_3->setObjectName(QStringLiteral("label_3"));
@@ -197,39 +174,47 @@ public:
 
         gridLayout->addWidget(label_4, 3, 1, 1, 1);
 
-        BaudRateComboBox = new QComboBox(ConnectionGroupBox);
-        BaudRateComboBox->addItem(QString());
-        BaudRateComboBox->addItem(QString());
-        BaudRateComboBox->addItem(QString());
-        BaudRateComboBox->addItem(QString());
-        BaudRateComboBox->addItem(QString());
-        BaudRateComboBox->addItem(QString());
-        BaudRateComboBox->addItem(QString());
-        BaudRateComboBox->addItem(QString());
-        BaudRateComboBox->addItem(QString());
-        BaudRateComboBox->setObjectName(QStringLiteral("BaudRateComboBox"));
+        horizontalSpacer_2 = new QSpacerItem(70, 20, QSizePolicy::Preferred, QSizePolicy::Minimum);
 
-        gridLayout->addWidget(BaudRateComboBox, 1, 2, 1, 1);
+        gridLayout->addItem(horizontalSpacer_2, 2, 3, 1, 1);
 
-        ParityComboBox = new QComboBox(ConnectionGroupBox);
-        ParityComboBox->addItem(QString());
-        ParityComboBox->addItem(QString());
-        ParityComboBox->addItem(QString());
-        ParityComboBox->addItem(QString());
-        ParityComboBox->addItem(QString());
-        ParityComboBox->addItem(QString());
-        ParityComboBox->setObjectName(QStringLiteral("ParityComboBox"));
+        FlowControlComboBox = new QComboBox(ConnectionGroupBox);
+        FlowControlComboBox->setObjectName(QStringLiteral("FlowControlComboBox"));
 
-        gridLayout->addWidget(ParityComboBox, 5, 2, 1, 1);
+        gridLayout->addWidget(FlowControlComboBox, 3, 2, 1, 1);
 
-        OpenConnectionPushButton = new QPushButton(ConnectionGroupBox);
-        OpenConnectionPushButton->setObjectName(QStringLiteral("OpenConnectionPushButton"));
+        label_5 = new QLabel(ConnectionGroupBox);
+        label_5->setObjectName(QStringLiteral("label_5"));
+        label_5->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(OpenConnectionPushButton, 6, 2, 1, 1);
+        gridLayout->addWidget(label_5, 4, 1, 1, 1);
 
-        horizontalSpacer = new QSpacerItem(70, 20, QSizePolicy::Preferred, QSizePolicy::Minimum);
+        label_2 = new QLabel(ConnectionGroupBox);
+        label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addItem(horizontalSpacer, 2, 0, 1, 1);
+        gridLayout->addWidget(label_2, 1, 1, 1, 1);
+
+        StopBitsComboBox = new QComboBox(ConnectionGroupBox);
+        StopBitsComboBox->setObjectName(QStringLiteral("StopBitsComboBox"));
+
+        gridLayout->addWidget(StopBitsComboBox, 4, 2, 1, 1);
+
+        DataBitsComboBox = new QComboBox(ConnectionGroupBox);
+        DataBitsComboBox->setObjectName(QStringLiteral("DataBitsComboBox"));
+
+        gridLayout->addWidget(DataBitsComboBox, 2, 2, 1, 1);
+
+        label_8 = new QLabel(ConnectionGroupBox);
+        label_8->setObjectName(QStringLiteral("label_8"));
+        label_8->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout->addWidget(label_8, 6, 1, 1, 1);
+
+        ModeComboBox = new QComboBox(ConnectionGroupBox);
+        ModeComboBox->setObjectName(QStringLiteral("ModeComboBox"));
+
+        gridLayout->addWidget(ModeComboBox, 6, 2, 1, 1);
 
 
         gridLayout_3->addWidget(ConnectionGroupBox, 1, 0, 1, 1);
@@ -244,33 +229,33 @@ public:
 
         gridLayout_4->addItem(horizontalSpacer_5, 0, 3, 1, 1);
 
-        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        SendCommandPushButton = new QPushButton(groupBox);
+        SendCommandPushButton->setObjectName(QStringLiteral("SendCommandPushButton"));
 
-        gridLayout_4->addItem(horizontalSpacer_4, 2, 3, 1, 1);
+        gridLayout_4->addWidget(SendCommandPushButton, 2, 1, 1, 2);
+
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_4->addItem(horizontalSpacer_3, 2, 0, 1, 1);
 
         horizontalSpacer_6 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         gridLayout_4->addItem(horizontalSpacer_6, 0, 0, 1, 1);
+
+        CommandlineEdit = new QLineEdit(groupBox);
+        CommandlineEdit->setObjectName(QStringLiteral("CommandlineEdit"));
+
+        gridLayout_4->addWidget(CommandlineEdit, 1, 0, 1, 4);
+
+        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_4->addItem(horizontalSpacer_4, 2, 3, 1, 1);
 
         label_7 = new QLabel(groupBox);
         label_7->setObjectName(QStringLiteral("label_7"));
         label_7->setAlignment(Qt::AlignCenter);
 
         gridLayout_4->addWidget(label_7, 0, 1, 1, 2);
-
-        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout_4->addItem(horizontalSpacer_3, 2, 0, 1, 1);
-
-        pushButton = new QPushButton(groupBox);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-
-        gridLayout_4->addWidget(pushButton, 2, 1, 1, 2);
-
-        lineEdit = new QLineEdit(groupBox);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
-
-        gridLayout_4->addWidget(lineEdit, 1, 0, 1, 4);
 
 
         gridLayout_3->addWidget(groupBox, 2, 0, 1, 1);
@@ -299,49 +284,17 @@ public:
         RefreshScanPushButton->setText(QApplication::translate("SerialDoctor", "Refresh", nullptr));
         groupBox_2->setTitle(QApplication::translate("SerialDoctor", "Output", nullptr));
         ConnectionGroupBox->setTitle(QApplication::translate("SerialDoctor", "Open connection", nullptr));
-        label_6->setText(QApplication::translate("SerialDoctor", "Parity", nullptr));
-        DataBitsComboBox->setItemText(0, QApplication::translate("SerialDoctor", "Unknown", nullptr));
-        DataBitsComboBox->setItemText(1, QApplication::translate("SerialDoctor", "5", nullptr));
-        DataBitsComboBox->setItemText(2, QApplication::translate("SerialDoctor", "6", nullptr));
-        DataBitsComboBox->setItemText(3, QApplication::translate("SerialDoctor", "7", nullptr));
-        DataBitsComboBox->setItemText(4, QApplication::translate("SerialDoctor", "8", nullptr));
-
-        label_2->setText(QApplication::translate("SerialDoctor", "Baud Rate", nullptr));
         label->setText(QApplication::translate("SerialDoctor", "Port Name", nullptr));
-        label_5->setText(QApplication::translate("SerialDoctor", "Stop Bits", nullptr));
-        StopBitsComboBox->setItemText(0, QApplication::translate("SerialDoctor", "Unknown", nullptr));
-        StopBitsComboBox->setItemText(1, QApplication::translate("SerialDoctor", "One stop", nullptr));
-        StopBitsComboBox->setItemText(2, QApplication::translate("SerialDoctor", "One and Half stop", nullptr));
-        StopBitsComboBox->setItemText(3, QApplication::translate("SerialDoctor", "Two stop", nullptr));
-
-        FlowControlComboBox->setItemText(0, QApplication::translate("SerialDoctor", "Unknown", nullptr));
-        FlowControlComboBox->setItemText(1, QApplication::translate("SerialDoctor", "No Flow Control", nullptr));
-        FlowControlComboBox->setItemText(2, QApplication::translate("SerialDoctor", "Software Control", nullptr));
-        FlowControlComboBox->setItemText(3, QApplication::translate("SerialDoctor", "Hardware Control", nullptr));
-
+        OpenConnectionPushButton->setText(QApplication::translate("SerialDoctor", "Open", nullptr));
+        label_6->setText(QApplication::translate("SerialDoctor", "Parity", nullptr));
         label_3->setText(QApplication::translate("SerialDoctor", "Data Bits", nullptr));
         label_4->setText(QApplication::translate("SerialDoctor", "Flow Control", nullptr));
-        BaudRateComboBox->setItemText(0, QApplication::translate("SerialDoctor", "Unknown", nullptr));
-        BaudRateComboBox->setItemText(1, QApplication::translate("SerialDoctor", "1200", nullptr));
-        BaudRateComboBox->setItemText(2, QApplication::translate("SerialDoctor", "2400", nullptr));
-        BaudRateComboBox->setItemText(3, QApplication::translate("SerialDoctor", "4800", nullptr));
-        BaudRateComboBox->setItemText(4, QApplication::translate("SerialDoctor", "9600", nullptr));
-        BaudRateComboBox->setItemText(5, QApplication::translate("SerialDoctor", "19200", nullptr));
-        BaudRateComboBox->setItemText(6, QApplication::translate("SerialDoctor", "38400", nullptr));
-        BaudRateComboBox->setItemText(7, QApplication::translate("SerialDoctor", "57600", nullptr));
-        BaudRateComboBox->setItemText(8, QApplication::translate("SerialDoctor", "115200", nullptr));
-
-        ParityComboBox->setItemText(0, QApplication::translate("SerialDoctor", "Unknown", nullptr));
-        ParityComboBox->setItemText(1, QApplication::translate("SerialDoctor", "No Parity", nullptr));
-        ParityComboBox->setItemText(2, QApplication::translate("SerialDoctor", "Even Parity", nullptr));
-        ParityComboBox->setItemText(3, QApplication::translate("SerialDoctor", "Odd Parity", nullptr));
-        ParityComboBox->setItemText(4, QApplication::translate("SerialDoctor", "Space Parity", nullptr));
-        ParityComboBox->setItemText(5, QApplication::translate("SerialDoctor", "Mark Parity", nullptr));
-
-        OpenConnectionPushButton->setText(QApplication::translate("SerialDoctor", "Open", nullptr));
+        label_5->setText(QApplication::translate("SerialDoctor", "Stop Bits", nullptr));
+        label_2->setText(QApplication::translate("SerialDoctor", "Baud Rate", nullptr));
+        label_8->setText(QApplication::translate("SerialDoctor", "Mode", nullptr));
         groupBox->setTitle(QApplication::translate("SerialDoctor", "GroupBox", nullptr));
+        SendCommandPushButton->setText(QApplication::translate("SerialDoctor", "Send command", nullptr));
         label_7->setText(QApplication::translate("SerialDoctor", "Enter your command :", nullptr));
-        pushButton->setText(QApplication::translate("SerialDoctor", "PushButton", nullptr));
     } // retranslateUi
 
 };
