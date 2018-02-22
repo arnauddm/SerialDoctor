@@ -28,7 +28,8 @@ public slots:
 	void on_SendCommandPushButton_clicked(void);
 
 private:
-    Ui::SerialDoctor *ui;
+	Ui::SerialDoctor *ui;
+	Serial *SerialPort;
 
 	QStringList	slBaudRate;
 	QStringList slDataBits;

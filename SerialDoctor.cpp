@@ -108,6 +108,9 @@ SerialDoctor::SerialDoctor(QWidget *parent) :
 	ui->BaudRateComboBox->addItems(slBaudRate);
 	ui->ParityComboBox->addItems(slParity);
 	ui->ModeComboBox->addItems(slMode);
+
+	// Init serial pointer
+	SerialPort = new Serial;
 }
 
 SerialDoctor::~SerialDoctor()
@@ -122,6 +125,7 @@ void SerialDoctor::on_OpenConnectionPushButton_clicked(void)
 
 void SerialDoctor::on_RefreshScanPushButton_clicked(void)
 {
+	ui->ReturnScanTextEdit->setPlainText(SerialPort->scan());
 }
 
 void SerialDoctor::on_SendCommandPushButton_clicked(void)
