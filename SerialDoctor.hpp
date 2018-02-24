@@ -38,12 +38,12 @@ private:
 	QStringList slFlowControl;
 	QStringList slMode;
 
-	QList<QPair<QString, Serial::BaudRate> > lBaudRate;
-	QList<QPair<QString, Serial::DataBits> > lDataBits;
-	QList<QPair<QString, Serial::Parity> > lParity;
-	QList<QPair<QString, Serial::StopBits> > lStopBits;
-	QList<QPair<QString, Serial::FlowControl> > lFlowControl;
-	QList<QPair<QString, Serial::Mode> > lMode;
+	QMap<QString, Serial::BaudRate> 		mBaudRate;
+	QMap<QString, Serial::DataBits> 		mDataBits;
+	QMap<QString, Serial::Parity>	 		mParity;
+	QMap<QString, Serial::StopBits> 		mStopBits;
+	QMap<QString, Serial::FlowControl>	 	mFlowControl;
+	QMap<QString, Serial::Mode> 			mMode;
 };
 
 #endif // SERIALDOCTOR_HPP
