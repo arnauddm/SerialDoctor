@@ -27,6 +27,14 @@ public slots:
 	void on_RefreshScanPushButton_clicked(void);
 	void on_SendCommandPushButton_clicked(void);
 
+	void BaudRate_Changed(QString text);
+	void Parity_Changed(QString text);
+	void FlowControl_Changed(QString text);
+	void StopBits_Changed(QString text);
+	void DataBits_Changed(QString text);
+
+	void DataReceived(QString text);
+
 private:
 	Ui::SerialDoctor *ui;
 	Serial *SerialPort;

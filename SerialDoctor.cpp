@@ -6,6 +6,20 @@ SerialDoctor::SerialDoctor(QWidget *parent) :
     ui(new Ui::SerialDoctor)
 {
     ui->setupUi(this);
+	
+	SerialPort = new Serial;
+	
+	QObject::connect(ui->BaudRateComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(BaudRate_Changed(QString)));
+
+	QObject::connect(ui->ParityComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(Parity_Changed(QString)));
+	
+	QObject::connect(ui->FlowControlComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(FlowControl_Changed(QString)));
+	
+	QObject::connect(ui->StopBitsComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(StopBits_Changed(QString)));
+
+	QObject::connect(ui->DataBitsComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(DataBits_Changed(QString)));
+
+	QObject::connect(SerialPort, SIGNAL(ReceiveData(QString)), this, SLOT(DataReceived(QString)));
 
 	// Init parameters lists
 	slBaudRate 				<<
@@ -108,6 +122,8 @@ SerialDoctor::SerialDoctor(QWidget *parent) :
 	ui->BaudRateComboBox->addItems(slBaudRate);
 	ui->ParityComboBox->addItems(slParity);
 	ui->ModeComboBox->addItems(slMode);
+
+	ui->OutputTextEdit->clear();
 }
 
 SerialDoctor::~SerialDoctor()
@@ -117,7 +133,7 @@ SerialDoctor::~SerialDoctor()
 
 void SerialDoctor::on_OpenConnectionPushButton_clicked(void)
 {
-	qDebug() << "Push pressed";
+	qDebug() << "Pushed";
 }
 
 void SerialDoctor::on_RefreshScanPushButton_clicked(void)
@@ -127,4 +143,56 @@ void SerialDoctor::on_RefreshScanPushButton_clicked(void)
 
 void SerialDoctor::on_SendCommandPushButton_clicked(void)
 {
+	QMap<QString, Serial::Mode>::iterator it = mMode.find(ui->ModeComboBox->currentText());
+	SerialPort->open(it.value());
+}
+
+void SerialDoctor::BaudRate_Changed(QString text)
+{
+	QMap<QString, Serial::BaudRate>::iterator it = mBaudRate.find(text);
+	if(SerialPort->setBaudRate(it.value()) == Serial::Error::NoError)
+		ui->OutputTextEdit->append("Successful Baud Rate change to " + text);
+	else
+		ui->OutputTextEdit->append("Failure to change the Baud Rate to " + text);
+}
+
+void SerialDoctor::Parity_Changed(QString text)
+{
+	QMap<QString, Serial::Parity>::iterator it = mParity.find(text);
+	if(SerialPort->setParity(it.value()) == Serial::Error::NoError)
+		ui->OutputTextEdit->append("Successful Parity change to " + text);
+	else
+		ui->OutputTextEdit->append("Failure to change the Parity to " + text);
+}
+
+void SerialDoctor::FlowControl_Changed(QString text)
+{
+	QMap<QString, Serial::FlowControl>::iterator it = mFlowControl.find(text);
+	if(SerialPort->setFlowControl(it.value()) == Serial::Error::NoError)
+		ui->OutputTextEdit->append("Successful Flow Control change to " + text);
+	else
+		ui->OutputTextEdit->append("Failure to change the Flow Control to " + text);
+}
+
+void SerialDoctor::StopBits_Changed(QString text)
+{
+	QMap<QString, Serial::StopBits>::iterator it = mStopBits.find(text);
+	if(SerialPort->setStopBits(it.value()) == Serial::Error::NoError)
+		ui->OutputTextEdit->append("Successful Stop Bits change to " + text);
+	else
+		ui->OutputTextEdit->append("Failure to change the Stop Bits to " + text);
+}
+
+void SerialDoctor::DataBits_Changed(QString text)
+{
+	QMap<QString, Serial::DataBits>::iterator it = mDataBits.find(text);
+	if(SerialPort->setDataBits(it.value()) == Serial::Error::NoError)
+		ui->OutputTextEdit->append("Successful Data Bits change to " + text);
+	else
+		ui->OutputTextEdit->append("Failure to change the Data Bits to " + text);
+}
+
+void SerialDoctor::DataReceived(QString text)
+{
+	ui->OutputTextEdit->append("New data :\n" + text);
 }
