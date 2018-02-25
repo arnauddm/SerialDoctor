@@ -133,7 +133,8 @@ SerialDoctor::~SerialDoctor()
 
 void SerialDoctor::on_OpenConnectionPushButton_clicked(void)
 {
-	qDebug() << "Pushed";
+	QMap<QString, Serial::Mode>::iterator it = mMode.find(ui->ModeComboBox->currentText());
+	SerialPort->open(it.value());
 }
 
 void SerialDoctor::on_RefreshScanPushButton_clicked(void)
