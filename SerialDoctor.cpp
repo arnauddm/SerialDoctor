@@ -7,22 +7,18 @@ SerialDoctor::SerialDoctor(QWidget *parent) :
 {
     ui->setupUi(this);
 	
-	SerialPort = new Serial;
+	_SerialPort = new Serial;
 	
-	QObject::connect(ui->BaudRateComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(BaudRate_Changed(QString)));
-
-	QObject::connect(ui->ParityComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(Parity_Changed(QString)));
-	
-	QObject::connect(ui->FlowControlComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(FlowControl_Changed(QString)));
-	
-	QObject::connect(ui->StopBitsComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(StopBits_Changed(QString)));
-
-	QObject::connect(ui->DataBitsComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(DataBits_Changed(QString)));
-
-	QObject::connect(SerialPort, SIGNAL(ReceiveData(QString)), this, SLOT(DataReceived(QString)));
+	QObject::connect(ui->BaudRateComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(baudRate_Changed(QString)));
+	QObject::connect(ui->ParityComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(parity_Changed(QString)));
+	QObject::connect(ui->FlowControlComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(flowControl_Changed(QString)));
+	QObject::connect(ui->StopBitsComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(stopBits_Changed(QString)));
+	QObject::connect(ui->DataBitsComboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(dataBits_Changed(QString)));
+	QObject::connect(_SerialPort, SIGNAL(ReceiveData(QString)), this, SLOT(dataReceived(QString)));
+	QObject::connect(this, SIGNAL(stateChanged(void)), this, SLOT(updateState(void)));
 
 	// Init parameters lists
-	slBaudRate 				<<
+	_slBaudRate 				<<
 		"Unknown"			<<
 		"1200"				<<
 		"2400"				<<
@@ -33,15 +29,14 @@ SerialDoctor::SerialDoctor(QWidget *parent) :
 		"57600"				<<
 		"115200"			;
 
-	slDataBits				<<
+	_slDataBits				<<
 		"Unknown"			<<
 		"5"					<<
 		"6"					<<
 		"7"					<<
 		"8"					;
 
-
-	slParity				<<
+	_slParity				<<
 		"Unknown"			<<
 		"No Parity"			<<
 		"Even Parity"		<<
@@ -49,13 +44,13 @@ SerialDoctor::SerialDoctor(QWidget *parent) :
 		"Space Parity"		<<
 		"Mark Parity"		;
 
-	slFlowControl			<<
+	_slFlowControl			<<
 		"Unknown"			<<
 		"No Control"		<<
 		"Harware Control"	<<
 		"Software Control"	;
 
-	slMode					<<
+	_slMode					<<
 		"Not Open"			<<
 		"Read Only"			<<
 		"Write Only"		<<
@@ -65,65 +60,66 @@ SerialDoctor::SerialDoctor(QWidget *parent) :
 		"Text"				<<
 		"Unbuffered"		;
 
-	slStopBits				<<
+	_slStopBits				<<
 		"Unknown"			<<
 		"One Stop"			<<
 		"One And Half Stop"	<<
 		"Two Stop"			;
 
-	mBaudRate.insert(slBaudRate[0], Serial::BaudRate::UnknownBaudRate);
-	mBaudRate.insert(slBaudRate[1], Serial::BaudRate::Baud1200);
-	mBaudRate.insert(slBaudRate[2], Serial::BaudRate::Baud2400);
-	mBaudRate.insert(slBaudRate[3], Serial::BaudRate::Baud4800);
-	mBaudRate.insert(slBaudRate[4], Serial::BaudRate::Baud9600);
-	mBaudRate.insert(slBaudRate[5], Serial::BaudRate::Baud19200);
-	mBaudRate.insert(slBaudRate[6], Serial::BaudRate::Baud38400);
-	mBaudRate.insert(slBaudRate[7], Serial::BaudRate::Baud57600);
-	mBaudRate.insert(slBaudRate[8], Serial::BaudRate::Baud115200);
+	_mBaudRate.insert(_slBaudRate[0], Serial::BaudRate::UnknownBaudRate);
+	_mBaudRate.insert(_slBaudRate[1], Serial::BaudRate::Baud1200);
+	_mBaudRate.insert(_slBaudRate[2], Serial::BaudRate::Baud2400);
+	_mBaudRate.insert(_slBaudRate[3], Serial::BaudRate::Baud4800);
+	_mBaudRate.insert(_slBaudRate[4], Serial::BaudRate::Baud9600);
+	_mBaudRate.insert(_slBaudRate[5], Serial::BaudRate::Baud19200);
+	_mBaudRate.insert(_slBaudRate[6], Serial::BaudRate::Baud38400);
+	_mBaudRate.insert(_slBaudRate[7], Serial::BaudRate::Baud57600);
+	_mBaudRate.insert(_slBaudRate[8], Serial::BaudRate::Baud115200);
 
-	mDataBits.insert(slDataBits[0], Serial::DataBits::UnknownDataBits);
-	mDataBits.insert(slDataBits[1], Serial::DataBits::Data5);
-	mDataBits.insert(slDataBits[2], Serial::DataBits::Data6);
-	mDataBits.insert(slDataBits[3], Serial::DataBits::Data7);
-	mDataBits.insert(slDataBits[4], Serial::DataBits::Data8);
+	_mDataBits.insert(_slDataBits[0], Serial::DataBits::UnknownDataBits);
+	_mDataBits.insert(_slDataBits[1], Serial::DataBits::Data5);
+	_mDataBits.insert(_slDataBits[2], Serial::DataBits::Data6);
+	_mDataBits.insert(_slDataBits[3], Serial::DataBits::Data7);
+	_mDataBits.insert(_slDataBits[4], Serial::DataBits::Data8);
 
-	mParity.insert(slParity[0], Serial::Parity::UnknownParity);
-	mParity.insert(slParity[1], Serial::Parity::NoParity);
-	mParity.insert(slParity[2], Serial::Parity::EvenParity);
-	mParity.insert(slParity[3], Serial::Parity::OddParity);
-	mParity.insert(slParity[4], Serial::Parity::SpaceParity);
-	mParity.insert(slParity[5], Serial::Parity::MarkParity);
+	_mParity.insert(_slParity[0], Serial::Parity::UnknownParity);
+	_mParity.insert(_slParity[1], Serial::Parity::NoParity);
+	_mParity.insert(_slParity[2], Serial::Parity::EvenParity);
+	_mParity.insert(_slParity[3], Serial::Parity::OddParity);
+	_mParity.insert(_slParity[4], Serial::Parity::SpaceParity);
+	_mParity.insert(_slParity[5], Serial::Parity::MarkParity);
 
-	mStopBits.insert(slStopBits[0], Serial::StopBits::UnknownStopBits);
-	mStopBits.insert(slStopBits[1], Serial::StopBits::OneStop);
-	mStopBits.insert(slStopBits[2], Serial::StopBits::OneAndHalfStop);
-	mStopBits.insert(slStopBits[3], Serial::StopBits::TwoStop);
+	_mStopBits.insert(_slStopBits[0], Serial::StopBits::UnknownStopBits);
+	_mStopBits.insert(_slStopBits[1], Serial::StopBits::OneStop);
+	_mStopBits.insert(_slStopBits[2], Serial::StopBits::OneAndHalfStop);
+	_mStopBits.insert(_slStopBits[3], Serial::StopBits::TwoStop);
 
-	mFlowControl.insert(slFlowControl[0], Serial::FlowControl::UnknownFlowControl);
-	mFlowControl.insert(slFlowControl[1], Serial::FlowControl::NoFlowControl);
-	mFlowControl.insert(slFlowControl[2], Serial::FlowControl::HardwareControl);
-	mFlowControl.insert(slFlowControl[3], Serial::FlowControl::SoftwareControl);
+	_mFlowControl.insert(_slFlowControl[0], Serial::FlowControl::UnknownFlowControl);
+	_mFlowControl.insert(_slFlowControl[1], Serial::FlowControl::NoFlowControl);
+	_mFlowControl.insert(_slFlowControl[2], Serial::FlowControl::HardwareControl);
+	_mFlowControl.insert(_slFlowControl[3], Serial::FlowControl::SoftwareControl);
 
-	mMode.insert(slMode[0], Serial::Mode::NotOpen);
-	mMode.insert(slMode[1], Serial::Mode::ReadOnly);
-	mMode.insert(slMode[2], Serial::Mode::WriteOnly);
-	mMode.insert(slMode[3], Serial::Mode::ReadWrite);
-	mMode.insert(slMode[4], Serial::Mode::Append);
-	mMode.insert(slMode[5], Serial::Mode::Truncate);
-	mMode.insert(slMode[6], Serial::Mode::Text);
-	mMode.insert(slMode[7], Serial::Mode::Unbuffered);
+	_mMode.insert(_slMode[0], Serial::Mode::NotOpen);
+	_mMode.insert(_slMode[1], Serial::Mode::ReadOnly);
+	_mMode.insert(_slMode[2], Serial::Mode::WriteOnly);
+	_mMode.insert(_slMode[3], Serial::Mode::ReadWrite);
+	_mMode.insert(_slMode[4], Serial::Mode::Append);
+	_mMode.insert(_slMode[5], Serial::Mode::Truncate);
+	_mMode.insert(_slMode[6], Serial::Mode::Text);
+	_mMode.insert(_slMode[7], Serial::Mode::Unbuffered);
 
 	// Init GUI's items
 	ui->ReturnScanTextEdit->setReadOnly(true);
 	ui->OutputTextEdit->setReadOnly(true);
-	ui->DataBitsComboBox->addItems(slDataBits);
-	ui->StopBitsComboBox->addItems(slStopBits);
-	ui->FlowControlComboBox->addItems(slFlowControl);
-	ui->BaudRateComboBox->addItems(slBaudRate);
-	ui->ParityComboBox->addItems(slParity);
-	ui->ModeComboBox->addItems(slMode);
+	ui->DataBitsComboBox->addItems(_slDataBits);
+	ui->StopBitsComboBox->addItems(_slStopBits);
+	ui->FlowControlComboBox->addItems(_slFlowControl);
+	ui->BaudRateComboBox->addItems(_slBaudRate);
+	ui->ParityComboBox->addItems(_slParity);
+	ui->ModeComboBox->addItems(_slMode);
 
 	ui->OutputTextEdit->clear();
+	emit stateChanged();
 }
 
 SerialDoctor::~SerialDoctor()
@@ -133,67 +129,104 @@ SerialDoctor::~SerialDoctor()
 
 void SerialDoctor::on_OpenConnectionPushButton_clicked(void)
 {
-	QMap<QString, Serial::Mode>::iterator it = mMode.find(ui->ModeComboBox->currentText());
-	SerialPort->open(it.value());
+	if(_SerialPort->isOpen())
+	{
+		_SerialPort->close();
+	}
+	else
+	{
+		QMap<QString, Serial::Mode>::iterator it = _mMode.find(ui->ModeComboBox->currentText());
+		_SerialPort->setPortName(ui->PortNameLineEdit->text());
+		if(_SerialPort->open(it.value()) == Serial::Error::NoError)
+			ui->OutputTextEdit->append("Successful to open Serial Port");
+		else
+			ui->OutputTextEdit->append("Failed to open Serial Port");
+	}
+	
+	emit stateChanged();
 }
 
 void SerialDoctor::on_RefreshScanPushButton_clicked(void)
 {
-	ui->ReturnScanTextEdit->setPlainText(SerialPort->scan());
+	ui->ReturnScanTextEdit->setPlainText(_SerialPort->scan());
 }
 
 void SerialDoctor::on_SendCommandPushButton_clicked(void)
 {
-	QMap<QString, Serial::Mode>::iterator it = mMode.find(ui->ModeComboBox->currentText());
-	SerialPort->open(it.value());
+	QMap<QString, Serial::Mode>::iterator it = _mMode.find(ui->ModeComboBox->currentText());
+	_SerialPort->open(it.value());
+
+	emit stateChanged();
 }
 
-void SerialDoctor::BaudRate_Changed(QString text)
+void SerialDoctor::baudRate_Changed(QString text)
 {
-	QMap<QString, Serial::BaudRate>::iterator it = mBaudRate.find(text);
-	if(SerialPort->setBaudRate(it.value()) == Serial::Error::NoError)
+	QMap<QString, Serial::BaudRate>::iterator it = _mBaudRate.find(text);
+	if(_SerialPort->setBaudRate(it.value()) == Serial::Error::NoError)
 		ui->OutputTextEdit->append("Successful Baud Rate change to " + text);
 	else
 		ui->OutputTextEdit->append("Failure to change the Baud Rate to " + text);
 }
 
-void SerialDoctor::Parity_Changed(QString text)
+void SerialDoctor::parity_Changed(QString text)
 {
-	QMap<QString, Serial::Parity>::iterator it = mParity.find(text);
-	if(SerialPort->setParity(it.value()) == Serial::Error::NoError)
+	QMap<QString, Serial::Parity>::iterator it = _mParity.find(text);
+	if(_SerialPort->setParity(it.value()) == Serial::Error::NoError)
 		ui->OutputTextEdit->append("Successful Parity change to " + text);
 	else
 		ui->OutputTextEdit->append("Failure to change the Parity to " + text);
 }
 
-void SerialDoctor::FlowControl_Changed(QString text)
+void SerialDoctor::flowControl_Changed(QString text)
 {
-	QMap<QString, Serial::FlowControl>::iterator it = mFlowControl.find(text);
-	if(SerialPort->setFlowControl(it.value()) == Serial::Error::NoError)
+	QMap<QString, Serial::FlowControl>::iterator it = _mFlowControl.find(text);
+	if(_SerialPort->setFlowControl(it.value()) == Serial::Error::NoError)
 		ui->OutputTextEdit->append("Successful Flow Control change to " + text);
 	else
 		ui->OutputTextEdit->append("Failure to change the Flow Control to " + text);
 }
 
-void SerialDoctor::StopBits_Changed(QString text)
+void SerialDoctor::stopBits_Changed(QString text)
 {
-	QMap<QString, Serial::StopBits>::iterator it = mStopBits.find(text);
-	if(SerialPort->setStopBits(it.value()) == Serial::Error::NoError)
+	QMap<QString, Serial::StopBits>::iterator it = _mStopBits.find(text);
+	if(_SerialPort->setStopBits(it.value()) == Serial::Error::NoError)
 		ui->OutputTextEdit->append("Successful Stop Bits change to " + text);
 	else
 		ui->OutputTextEdit->append("Failure to change the Stop Bits to " + text);
 }
 
-void SerialDoctor::DataBits_Changed(QString text)
+void SerialDoctor::dataBits_Changed(QString text)
 {
-	QMap<QString, Serial::DataBits>::iterator it = mDataBits.find(text);
-	if(SerialPort->setDataBits(it.value()) == Serial::Error::NoError)
+	QMap<QString, Serial::DataBits>::iterator it = _mDataBits.find(text);
+	if(_SerialPort->setDataBits(it.value()) == Serial::Error::NoError)
 		ui->OutputTextEdit->append("Successful Data Bits change to " + text);
 	else
 		ui->OutputTextEdit->append("Failure to change the Data Bits to " + text);
 }
 
-void SerialDoctor::DataReceived(QString text)
+void SerialDoctor::dataReceived(QString text)
 {
 	ui->OutputTextEdit->append("New data :\n" + text);
+}
+
+void SerialDoctor::updateState(void)
+{
+	qDebug() << "Update";
+	bool bDisable = _SerialPort->isOpen();
+	
+	ui->BaudRateComboBox->setDisabled(bDisable);
+	ui->ParityComboBox->setDisabled(bDisable);
+	ui->FlowControlComboBox->setDisabled(bDisable);
+	ui->StopBitsComboBox->setDisabled(bDisable);
+	ui->DataBitsComboBox->setDisabled(bDisable);
+	ui->ModeComboBox->setDisabled(bDisable);
+	ui->PortNameLineEdit->setDisabled(bDisable);
+
+	ui->SendCommandPushButton->setDisabled(!bDisable);
+	ui->CommandlineEdit->setDisabled(!bDisable);
+
+	if(bDisable)
+		ui->OpenConnectionPushButton->setText("Close");
+	else
+		ui->OpenConnectionPushButton->setText("Open");
 }

@@ -22,36 +22,40 @@ public:
     explicit SerialDoctor(QWidget *parent = 0);
     ~SerialDoctor();
 
-public slots:
+private slots:
 	void on_OpenConnectionPushButton_clicked(void);
 	void on_RefreshScanPushButton_clicked(void);
 	void on_SendCommandPushButton_clicked(void);
 
-	void BaudRate_Changed(QString text);
-	void Parity_Changed(QString text);
-	void FlowControl_Changed(QString text);
-	void StopBits_Changed(QString text);
-	void DataBits_Changed(QString text);
+	void baudRate_Changed(QString text);
+	void parity_Changed(QString text);
+	void flowControl_Changed(QString text);
+	void stopBits_Changed(QString text);
+	void dataBits_Changed(QString text);
 
-	void DataReceived(QString text);
+	void dataReceived(QString text);
+	void updateState(void);
+
+signals:
+	void stateChanged(void);
 
 private:
 	Ui::SerialDoctor *ui;
-	Serial *SerialPort;
+	Serial *_SerialPort;
 
-	QStringList	slBaudRate;
-	QStringList slDataBits;
-	QStringList slParity;
-	QStringList slStopBits;
-	QStringList slFlowControl;
-	QStringList slMode;
+	QStringList	_slBaudRate;
+	QStringList _slDataBits;
+	QStringList _slParity;
+	QStringList _slStopBits;
+	QStringList _slFlowControl;
+	QStringList _slMode;
 
-	QMap<QString, Serial::BaudRate> 		mBaudRate;
-	QMap<QString, Serial::DataBits> 		mDataBits;
-	QMap<QString, Serial::Parity>	 		mParity;
-	QMap<QString, Serial::StopBits> 		mStopBits;
-	QMap<QString, Serial::FlowControl>	 	mFlowControl;
-	QMap<QString, Serial::Mode> 			mMode;
+	QMap<QString, Serial::BaudRate> 		_mBaudRate;
+	QMap<QString, Serial::DataBits> 		_mDataBits;
+	QMap<QString, Serial::Parity>	 		_mParity;
+	QMap<QString, Serial::StopBits> 		_mStopBits;
+	QMap<QString, Serial::FlowControl>	 	_mFlowControl;
+	QMap<QString, Serial::Mode> 			_mMode;
 };
 
 #endif // SERIALDOCTOR_HPP
