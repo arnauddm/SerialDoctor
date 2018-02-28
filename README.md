@@ -22,8 +22,8 @@ You have two solutions to compile this project, the first solution is to compile
 ### QMake
 Noe : in your .pro file, you must add the lines below
 ```console
-QT += 	serialport 	\
-		core		  \
-		widgets		    \
+QT += 	serialport	\
+		core		\
+		widgets		\
 		gui
 ```
