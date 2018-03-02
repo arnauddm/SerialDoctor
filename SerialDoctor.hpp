@@ -5,6 +5,8 @@
 
 #include <QMainWindow>
 #include <QDebug>
+#include <QToolButton>
+#include <QLabel>
 
 namespace Ui {
 class SerialDoctor;
@@ -25,6 +27,7 @@ signals:
 
 private:
 	Ui::SerialDoctor 	*ui;
+	QToolButton			*newPortButton;
 };
 
 #endif // SERIALDOCTOR_HPP

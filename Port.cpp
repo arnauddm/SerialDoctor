@@ -126,6 +126,32 @@ Port::Port(void)
 	OpenCloseConnectionPushButton = new QPushButton;
 	SendCommandPushButton = new QPushButton;
 
+	MainLayout->setVerticalSpacing(1);
+	MainLayout->setHorizontalSpacing(10);
+
+	MainLayout->addWidget(PortNameLabel, 1, 0, Qt::AlignRight);
+	MainLayout->addWidget(PortNameLineEdit, 1, 1, Qt::AlignLeft);
+
+	MainLayout->addWidget(BaudRateLabel, 2, 0, Qt::AlignRight);
+	MainLayout->addWidget(BaudRateComboBox, 2, 1, Qt::AlignLeft);
+
+	MainLayout->addWidget(ParityLabel, 3, 0, Qt::AlignRight);
+	MainLayout->addWidget(ParityComboBox, 3, 1, Qt::AlignLeft);
+
+	MainLayout->addWidget(FlowControlLabel, 4, 0, Qt::AlignRight);
+	MainLayout->addWidget(FlowControlComboBox, 4, 1, Qt::AlignLeft);
+
+	MainLayout->addWidget(StopBitsLabel, 5, 0, Qt::AlignRight);
+	MainLayout->addWidget(StopBitsComboBox, 5, 1, Qt::AlignLeft);
+
+	MainLayout->addWidget(DataBitsLabel, 6, 0, Qt::AlignRight);
+	MainLayout->addWidget(DataBitsComboBox, 6, 1, Qt::AlignLeft);
+
+	MainLayout->addWidget(ModeLabel, 7, 0, Qt::AlignRight);
+	MainLayout->addWidget(ModeComboBox, 7, 1, Qt::AlignLeft);
+
+
+	this->setLayout(MainLayout);
 }
 
 Port::~Port(void)
