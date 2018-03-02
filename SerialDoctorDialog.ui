@@ -34,7 +34,7 @@
       </layout>
      </widget>
     </item>
-    <item row="0" column="1" rowspan="3">
+    <item row="0" column="1" rowspan="2">
      <widget class="QGroupBox" name="groupBox_2">
       <property name="minimumSize">
        <size>
@@ -53,223 +53,19 @@
      </widget>
     </item>
     <item row="1" column="0">
-     <widget class="QGroupBox" name="ConnectionGroupBox">
-      <property name="title">
-       <string>Open connection</string>
+     <widget class="QTabWidget" name="PortTabWidget">
+      <property name="tabletTracking">
+       <bool>true</bool>
       </property>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="2" column="0">
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Preferred</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>70</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>Port Name</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="2">
-        <widget class="QPushButton" name="OpenConnectionPushButton">
-         <property name="text">
-          <string>Open</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <widget class="QLabel" name="label_6">
-         <property name="text">
-          <string>Parity</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="2">
-        <widget class="QComboBox" name="BaudRateComboBox"/>
-       </item>
-       <item row="5" column="2">
-        <widget class="QComboBox" name="ParityComboBox"/>
-       </item>
-       <item row="0" column="2">
-        <widget class="QLineEdit" name="PortNameLineEdit"/>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>Data Bits</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QLabel" name="label_4">
-         <property name="text">
-          <string>Flow Control</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="3">
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Preferred</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>70</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="3" column="2">
-        <widget class="QComboBox" name="FlowControlComboBox"/>
-       </item>
-       <item row="4" column="1">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>Stop Bits</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>Baud Rate</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="2">
-        <widget class="QComboBox" name="StopBitsComboBox"/>
-       </item>
-       <item row="2" column="2">
-        <widget class="QComboBox" name="DataBitsComboBox"/>
-       </item>
-       <item row="6" column="1">
-        <widget class="QLabel" name="label_8">
-         <property name="text">
-          <string>Mode</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="2">
-        <widget class="QComboBox" name="ModeComboBox"/>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QGroupBox" name="groupBox">
-      <property name="title">
-       <string>GroupBox</string>
+      <property name="tabPosition">
+       <enum>QTabWidget::South</enum>
       </property>
-      <layout class="QGridLayout" name="gridLayout_4">
-       <item row="0" column="3">
-        <spacer name="horizontalSpacer_5">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="2" column="1" colspan="2">
-        <widget class="QPushButton" name="SendCommandPushButton">
-         <property name="text">
-          <string>Send command</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <spacer name="horizontalSpacer_3">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="0">
-        <spacer name="horizontalSpacer_6">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="1" column="0" colspan="4">
-        <widget class="QLineEdit" name="CommandlineEdit"/>
-       </item>
-       <item row="2" column="3">
-        <spacer name="horizontalSpacer_4">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="1" colspan="2">
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>Enter your command :</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <property name="tabShape">
+       <enum>QTabWidget::Rounded</enum>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
      </widget>
     </item>
    </layout>
