@@ -158,6 +158,27 @@ Port::Port(void)
 
 Port::~Port(void)
 {
+	delete _pSerialPort; _pSerialPort = nullptr;
+	delete MainLayout; MainLayout = nullptr;
+	delete BaudRateComboBox; BaudRateComboBox = nullptr;
+	delete ParityComboBox; ParityComboBox = nullptr;
+	delete FlowControlComboBox; FlowControlComboBox = nullptr;
+	delete StopBitsComboBox; StopBitsComboBox = nullptr;
+	delete DataBitsComboBox; DataBitsComboBox = nullptr;
+	delete ModeComboBox; ModeComboBox = nullptr;
+	delete PortNameLineEdit; PortNameLineEdit = nullptr;
+	delete CommandLineEdit; CommandLineEdit = nullptr;
+	delete BaudRateLabel; BaudRateLabel = nullptr;
+	delete ParityLabel; ParityLabel = nullptr;
+	delete FlowControlLabel; FlowControlLabel = nullptr;
+	delete StopBitsLabel; StopBitsLabel = nullptr;
+	delete DataBitsLabel; DataBitsLabel = nullptr;
+	delete DataBitsLabel; DataBitsLabel = nullptr;
+	delete ModeLabel; ModeLabel = nullptr;
+	delete PortNameLabel; PortNameLabel = nullptr;
+	delete CommandLabel; CommandLabel = nullptr;
+	delete OpenCloseConnectionPushButton; OpenCloseConnectionPushButton = nullptr;
+	delete SendCommandPushButton; SendCommandPushButton = nullptr;
 }
 
 
