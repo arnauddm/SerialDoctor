@@ -9,8 +9,8 @@ SerialDoctor::SerialDoctor(QWidget *parent) :
     ui->setupUi(this);
 
 	QObject::connect(ui->RefreshScanPushButton, SIGNAL(clicked()), this, SLOT(refreshScan()));
-
-	addPort();
+	QObject::connect(ui->actionScan, SIGNAL(triggered()), this, SLOT(refreshScan()));
+	QObject::connect(ui->actionNewPort, SIGNAL(triggered()), this, SLOT(addPort()));
 }
 
 SerialDoctor::~SerialDoctor()
@@ -41,4 +41,10 @@ void SerialDoctor::addPort(void)
 	Port *p = new Port;
 	ui->PortTabWidget->addTab(p, "New port");
 	QObject::connect(p, SIGNAL(portNameChanged(QString)), this, SLOT(updateTabName(QString)));
+	QObject::connect(p, SIGNAL(printMessage(QString)), this, SLOT(print(QString)));
+}
+
+void SerialDoctor::print(QString msg)
+{
+	ui->OutputTextEdit->append(msg);
 }

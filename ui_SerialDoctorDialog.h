@@ -17,6 +17,7 @@
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
@@ -31,6 +32,8 @@ QT_BEGIN_NAMESPACE
 class Ui_SerialDoctor
 {
 public:
+    QAction *actionScan;
+    QAction *actionNewPort;
     QWidget *centralWidget;
     QGridLayout *gridLayout_3;
     QGroupBox *scanGroupBox;
@@ -42,6 +45,7 @@ public:
     QTextEdit *OutputTextEdit;
     QTabWidget *PortTabWidget;
     QMenuBar *menuBar;
+    QMenu *menuPort;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -50,6 +54,10 @@ public:
         if (SerialDoctor->objectName().isEmpty())
             SerialDoctor->setObjectName(QStringLiteral("SerialDoctor"));
         SerialDoctor->resize(883, 702);
+        actionScan = new QAction(SerialDoctor);
+        actionScan->setObjectName(QStringLiteral("actionScan"));
+        actionNewPort = new QAction(SerialDoctor);
+        actionNewPort->setObjectName(QStringLiteral("actionNewPort"));
         centralWidget = new QWidget(SerialDoctor);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout_3 = new QGridLayout(centralWidget);
@@ -102,6 +110,8 @@ public:
         menuBar = new QMenuBar(SerialDoctor);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 883, 22));
+        menuPort = new QMenu(menuBar);
+        menuPort->setObjectName(QStringLiteral("menuPort"));
         SerialDoctor->setMenuBar(menuBar);
         mainToolBar = new QToolBar(SerialDoctor);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -110,9 +120,13 @@ public:
         statusBar->setObjectName(QStringLiteral("statusBar"));
         SerialDoctor->setStatusBar(statusBar);
 
+        menuBar->addAction(menuPort->menuAction());
+        menuPort->addAction(actionScan);
+        menuPort->addAction(actionNewPort);
+
         retranslateUi(SerialDoctor);
 
-        PortTabWidget->setCurrentIndex(0);
+        PortTabWidget->setCurrentIndex(-1);
 
 
         QMetaObject::connectSlotsByName(SerialDoctor);
@@ -121,9 +135,12 @@ public:
     void retranslateUi(QMainWindow *SerialDoctor)
     {
         SerialDoctor->setWindowTitle(QApplication::translate("SerialDoctor", "SerialDoctor", nullptr));
+        actionScan->setText(QApplication::translate("SerialDoctor", "Scan", nullptr));
+        actionNewPort->setText(QApplication::translate("SerialDoctor", "New", nullptr));
         scanGroupBox->setTitle(QApplication::translate("SerialDoctor", "Scan", nullptr));
         RefreshScanPushButton->setText(QApplication::translate("SerialDoctor", "Refresh", nullptr));
         groupBox_2->setTitle(QApplication::translate("SerialDoctor", "Output", nullptr));
+        menuPort->setTitle(QApplication::translate("SerialDoctor", "Port", nullptr));
     } // retranslateUi
 
 };

@@ -64,7 +64,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>-1</number>
       </property>
      </widget>
     </item>
@@ -79,6 +79,14 @@
      <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuPort">
+    <property name="title">
+     <string>Port</string>
+    </property>
+    <addaction name="actionScan"/>
+    <addaction name="actionNewPort"/>
+   </widget>
+   <addaction name="menuPort"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -89,6 +97,16 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionScan">
+   <property name="text">
+    <string>Scan</string>
+   </property>
+  </action>
+  <action name="actionNewPort">
+   <property name="text">
+    <string>New</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

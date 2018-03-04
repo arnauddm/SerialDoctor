@@ -24,6 +24,7 @@ private slots:
 	void refreshScan(void);
 	void updateTabName(QString tabName);
 	void addPort(void);
+	void print(QString msg);
 
 signals:
 
