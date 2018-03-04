@@ -150,8 +150,10 @@ Port::Port(void)
 	MainLayout->addWidget(ModeLabel, 7, 0, Qt::AlignRight);
 	MainLayout->addWidget(ModeComboBox, 7, 1, Qt::AlignLeft);
 
-
 	this->setLayout(MainLayout);
+
+	// Connect signals to slots
+	QObject::connect(PortNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(portName_Changed(QString)));
 }
 
 Port::~Port(void)
@@ -256,4 +258,10 @@ void Port::updateState(void)
 		OpenCloseConnectionPushButton->setText("Close");
 	else
 		OpenCloseConnectionPushButton->setText("Open");
+}
+
+void Port::portName_Changed(QString name)
+{
+	qDebug() << "Port name changed()";
+	emit portNameChanged(name);
 }

@@ -24,6 +24,7 @@ public slots:
 	void openConnectionPushButton_clicked(void);
 	void sendCommandPushButton_clicked(void);
 	void baudRate_Changed(QString text);
+	void portName_Changed(QString text);
 	void parity_Changed(QString text);
 	void flowControl_Changed(QString text);
 	void stopBits_Changed(QString text);
@@ -34,6 +35,7 @@ public slots:
 signals:
 	void stateChanged(void);
 	void printMessage(QString sMessage);
+	void portNameChanged(QString name);
 
 private:
 	Serial									*_pSerialPort;

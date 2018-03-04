@@ -8,14 +8,9 @@ SerialDoctor::SerialDoctor(QWidget *parent) :
 {
     ui->setupUi(this);
 
-	newPortButton = new QToolButton;
-	newPortButton->setText("+");
+	QObject::connect(ui->RefreshScanPushButton, SIGNAL(clicked()), this, SLOT(refreshScan()));
 
-	Port *p1 = new Port;
-
-	ui->PortTabWidget->insertTab(0, p1,"test");
-	//ui->PortTabWidget->widget(0) = p1;
-	//ui->PortTabWidget->tabBar()->setTabButton(0, QTabBar::RightSide, newPortButton);
+	addPort();
 }
 
 SerialDoctor::~SerialDoctor()
@@ -23,9 +18,27 @@ SerialDoctor::~SerialDoctor()
     delete ui;
 }
 
-void SerialDoctor::on_RefreshScanPushButton_clicked(void)
+void SerialDoctor::refreshScan(void)
 {
-	Serial SerialPort;
-	ui->ReturnScanTextEdit->setPlainText(SerialPort.scan());
+	/*
+	Serial *SerialPort = new Serial;
+	QString scan = SerialPort->scan();
+	qDebug() << scan;
+	//ui->ReturnScanTextEdit->setPlainText(SerialPort->scan());
+	delete SerialPort;
+	*/
+	ui->ReturnScanTextEdit->setPlainText("Internal error");
 }
 
+void SerialDoctor::updateTabName(QString tabName)
+{
+	int nActualTab = ui->PortTabWidget->currentIndex();
+	ui->PortTabWidget->setTabText(nActualTab, tabName);
+}
+
+void SerialDoctor::addPort(void)
+{
+	Port *p = new Port;
+	ui->PortTabWidget->addTab(p, "New port");
+	QObject::connect(p, SIGNAL(portNameChanged(QString)), this, SLOT(updateTabName(QString)));
+}

@@ -21,7 +21,9 @@ public:
     ~SerialDoctor();
 
 private slots:
-	void on_RefreshScanPushButton_clicked(void);
+	void refreshScan(void);
+	void updateTabName(QString tabName);
+	void addPort(void);
 
 signals:
 
