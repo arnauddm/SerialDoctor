@@ -150,10 +150,17 @@ Port::Port(void)
 	MainLayout->addWidget(ModeLabel, 7, 0, Qt::AlignRight);
 	MainLayout->addWidget(ModeComboBox, 7, 1, Qt::AlignLeft);
 
+	MainLayout->addWidget(OpenCloseConnectionPushButton, 8, 1);
+
 	this->setLayout(MainLayout);
 
 	// Connect signals to slots
 	QObject::connect(PortNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(portName_Changed(QString)));
+	QObject::connect(this, SIGNAL(stateChanged(void)), this, SLOT(updateState(void)));
+	QObject::connect(OpenCloseConnectionPushButton, SIGNAL(clicked(void)), this, SLOT(openConnectionPushButton_clicked(void)));
+	
+	// update OpenCloseConnectionPushButton text
+	emit stateChanged();
 }
 
 Port::~Port(void)
@@ -191,11 +198,12 @@ void Port::openConnectionPushButton_clicked(void)
 	else
 	{
 		QMap<QString, Serial::Mode>::iterator it = _mMode.find(ModeComboBox->currentText());
-		_pSerialPort->setPortName(PortNameLineEdit->text());
+		_sPortName = PortNameLineEdit->text();
+		_pSerialPort->setPortName(_sPortName);
 		if(_pSerialPort->open(it.value()) == Serial::Error::NoError)
-			emit printMessage("Test");
+			emit printMessage("Successful to oen <b>" + _sPortName + "</b>");
 		else
-			emit printMessage("Test");
+			emit printMessage("An error occured while opening <b>" + _sPortName + "</b>");
 	}
 	
 	emit stateChanged();

@@ -77,6 +77,8 @@ private:
 	QMap<QString, Serial::StopBits>         _mStopBits;
 	QMap<QString, Serial::FlowControl>      _mFlowControl;
 	QMap<QString, Serial::Mode>             _mMode;
+
+	QString									_sPortName;
 };
 
 #endif

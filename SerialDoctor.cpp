@@ -8,6 +8,9 @@ SerialDoctor::SerialDoctor(QWidget *parent) :
 {
     ui->setupUi(this);
 
+	ui->OutputTextEdit->setReadOnly(true);
+	ui->ReturnScanTextEdit->setReadOnly(true);
+
 	QObject::connect(ui->RefreshScanPushButton, SIGNAL(clicked()), this, SLOT(refreshScan()));
 	QObject::connect(ui->actionScan, SIGNAL(triggered()), this, SLOT(refreshScan()));
 	QObject::connect(ui->actionNewPort, SIGNAL(triggered()), this, SLOT(addPort()));
