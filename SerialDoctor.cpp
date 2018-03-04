@@ -20,14 +20,11 @@ SerialDoctor::~SerialDoctor()
 
 void SerialDoctor::refreshScan(void)
 {
-	/*
-	Serial *SerialPort = new Serial;
+	Serial *SerialPort  = new Serial;
 	QString scan = SerialPort->scan();
 	qDebug() << scan;
-	//ui->ReturnScanTextEdit->setPlainText(SerialPort->scan());
+	ui->ReturnScanTextEdit->setPlainText(scan);
 	delete SerialPort;
-	*/
-	ui->ReturnScanTextEdit->setPlainText("Internal error");
 }
 
 void SerialDoctor::updateTabName(QString tabName)

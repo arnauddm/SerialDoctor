@@ -30,7 +30,6 @@ signals:
 
 private:
 	Ui::SerialDoctor 	*ui;
-	QToolButton			*newPortButton;
 };
 
 #endif // SERIALDOCTOR_HPP
