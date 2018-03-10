@@ -158,6 +158,7 @@ Port::Port(void)
 	QObject::connect(PortNameLineEdit, SIGNAL(textChanged(QString)), this, SLOT(portName_Changed(QString)));
 	QObject::connect(this, SIGNAL(stateChanged(void)), this, SLOT(updateState(void)));
 	QObject::connect(OpenCloseConnectionPushButton, SIGNAL(clicked(void)), this, SLOT(openConnectionPushButton_clicked(void)));
+	QObject::connect(_pSerialPort, SIGNAL(ReceiveData(QString)), this, SLOT(dataReceived(QString)));
 	
 	// update OpenCloseConnectionPushButton text
 	emit stateChanged();
@@ -264,7 +265,8 @@ void Port::dataBits_Changed(QString text)
 
 void Port::dataReceived(QString text)
 {
-	emit printMessage("Test");
+	qDebug() << "Receive data";
+	emit printMessage("From <b>" + _sPortName + "</b> : " + text);
 }
 
 void Port::updateState(void)
