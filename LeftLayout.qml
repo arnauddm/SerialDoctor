@@ -19,6 +19,7 @@ spacing: 40
         Button {
 			anchors.horizontalCenter: parent.horizontalCenter
             text: qsTr("Refresh scan")
+			id: refreshScanButton
 
 			onClicked: {
 				returnScan.text= qsTr("Scanned")

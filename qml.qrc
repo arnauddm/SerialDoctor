@@ -2,6 +2,7 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>LeftLayout.qml</file>
+        <file>TextEditor.qml</file>
         <file>qtquickcontrols2.conf</file>
     </qresource>
 </RCC>
