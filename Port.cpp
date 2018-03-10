@@ -202,7 +202,7 @@ void Port::openConnectionPushButton_clicked(void)
 		_sPortName = PortNameLineEdit->text();
 		_pSerialPort->setPortName(_sPortName);
 		if(_pSerialPort->open(it.value()) == Serial::Error::NoError)
-			emit printMessage("Successful to oen <b>" + _sPortName + "</b>");
+			emit printMessage("Successful to open <b>" + _sPortName + "</b>");
 		else
 			emit printMessage("An error occured while opening <b>" + _sPortName + "</b>");
 	}
