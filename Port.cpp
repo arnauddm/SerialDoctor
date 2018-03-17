@@ -112,7 +112,9 @@ Port::Port(void)
 	ModeComboBox->addItems(_slMode);
 
 	PortNameLineEdit = new QLineEdit;
+	PortNameLineEdit->setPlaceholderText("Port Name...");
 	CommandLineEdit = new QLineEdit;
+	CommandLineEdit->setPlaceholderText("Command...");
 
 	BaudRateLabel = new QLabel("Baud Rate");;
 	ParityLabel = new QLabel("Parity ");
@@ -124,7 +126,7 @@ Port::Port(void)
 	CommandLabel = new QLabel("Your command");
 
 	OpenCloseConnectionPushButton = new QPushButton;
-	SendCommandPushButton = new QPushButton;
+	SendCommandPushButton = new QPushButton("Send");
 
 	MainLayout->setVerticalSpacing(1);
 	MainLayout->setHorizontalSpacing(10);
@@ -151,6 +153,11 @@ Port::Port(void)
 	MainLayout->addWidget(ModeComboBox, 7, 1, Qt::AlignLeft);
 
 	MainLayout->addWidget(OpenCloseConnectionPushButton, 8, 1);
+
+	MainLayout->addWidget(CommandLabel, 9, 0, Qt::AlignRight);
+	MainLayout->addWidget(CommandLineEdit, 9, 1, Qt::AlignLeft);
+	
+	MainLayout->addWidget(SendCommandPushButton, 10, 1);
 
 	this->setLayout(MainLayout);
 
@@ -198,7 +205,7 @@ void Port::openConnectionPushButton_clicked(void)
 	}
 	else
 	{
-		QMap<QString, Serial::Mode>::iterator it = _mMode.find(ModeComboBox->currentText());
+		QHash<QString, Serial::Mode>::iterator it = _mMode.find(ModeComboBox->currentText());
 		_sPortName = PortNameLineEdit->text();
 		_pSerialPort->setPortName(_sPortName);
 		if(_pSerialPort->open(it.value()) == Serial::Error::NoError)
@@ -212,15 +219,12 @@ void Port::openConnectionPushButton_clicked(void)
 
 void Port::sendCommandPushButton_clicked(void)
 {
-	QMap<QString, Serial::Mode>::iterator it = _mMode.find(ModeComboBox->currentText());
-	_pSerialPort->open(it.value());
-
-	emit stateChanged();
+	_pSerialPort->send(CommandLineEdit->text());
 }
 
 void Port::baudRate_Changed(QString text)
 {
-	QMap<QString, Serial::BaudRate>::iterator it = _mBaudRate.find(text);
+	QHash<QString, Serial::BaudRate>::iterator it = _mBaudRate.find(text);
 	if(_pSerialPort->setBaudRate(it.value()) == Serial::Error::NoError)
 		emit printMessage("Test");
 	else
@@ -229,7 +233,7 @@ void Port::baudRate_Changed(QString text)
 
 void Port::parity_Changed(QString text)
 {
-	QMap<QString, Serial::Parity>::iterator it = _mParity.find(text);
+	QHash<QString, Serial::Parity>::iterator it = _mParity.find(text);
 	if(_pSerialPort->setParity(it.value()) == Serial::Error::NoError)
 		emit printMessage("Test");
 	else
@@ -238,7 +242,7 @@ void Port::parity_Changed(QString text)
 
 void Port::flowControl_Changed(QString text)
 {
-	QMap<QString, Serial::FlowControl>::iterator it = _mFlowControl.find(text);
+	QHash<QString, Serial::FlowControl>::iterator it = _mFlowControl.find(text);
 	if(_pSerialPort->setFlowControl(it.value()) == Serial::Error::NoError)
 		emit printMessage("Test");
 	else
@@ -247,7 +251,7 @@ void Port::flowControl_Changed(QString text)
 
 void Port::stopBits_Changed(QString text)
 {
-	QMap<QString, Serial::StopBits>::iterator it = _mStopBits.find(text);
+	QHash<QString, Serial::StopBits>::iterator it = _mStopBits.find(text);
 	if(_pSerialPort->setStopBits(it.value()) == Serial::Error::NoError)
 		emit printMessage("Test");
 	else
@@ -256,7 +260,7 @@ void Port::stopBits_Changed(QString text)
 
 void Port::dataBits_Changed(QString text)
 {
-	QMap<QString, Serial::DataBits>::iterator it = _mDataBits.find(text);
+	QHash<QString, Serial::DataBits>::iterator it = _mDataBits.find(text);
 	if(_pSerialPort->setDataBits(it.value()) == Serial::Error::NoError)
 		emit printMessage("Test");
 	else

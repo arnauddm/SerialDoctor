@@ -38,6 +38,8 @@ signals:
 	void portNameChanged(QString name);
 
 private:
+	void init(void);
+
 	Serial									*_pSerialPort;
 
 	QGridLayout								*MainLayout;
@@ -71,12 +73,12 @@ private:
 	QStringList								_slStopBits;
 	QStringList								_slMode;
 
-	QMap<QString, Serial::BaudRate>         _mBaudRate;
-	QMap<QString, Serial::DataBits>         _mDataBits;
-	QMap<QString, Serial::Parity>           _mParity;
-	QMap<QString, Serial::StopBits>         _mStopBits;
-	QMap<QString, Serial::FlowControl>      _mFlowControl;
-	QMap<QString, Serial::Mode>             _mMode;
+	QHash<QString, Serial::BaudRate>         _mBaudRate;
+	QHash<QString, Serial::DataBits>         _mDataBits;
+	QHash<QString, Serial::Parity>           _mParity;
+	QHash<QString, Serial::StopBits>         _mStopBits;
+	QHash<QString, Serial::FlowControl>      _mFlowControl;
+	QHash<QString, Serial::Mode>             _mMode;
 
 	QString									_sPortName;
 };
