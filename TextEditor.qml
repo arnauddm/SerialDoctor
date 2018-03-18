@@ -4,6 +4,7 @@ Flickable {
     id: flick
 
 	property string sText
+	property int borderMargin
 
     width: 300; height: 200;
     contentWidth: edit.paintedWidth
@@ -22,13 +23,17 @@ Flickable {
         contentY = r.y+r.height-height;
     }
 
-    TextEdit {
-        id: edit
-        width: flick.width
-        height: flick.height
-        focus: true
-        wrapMode: TextEdit.Wrap
-        onCursorRectangleChanged: flick.ensureVisible(cursorRectangle)
-		text: sText
-    }
+	Rectangle {
+		id: rect
+		border.width: borderMargin
+		TextEdit {
+			id: edit
+			width: flick.width
+			height: flick.height
+			focus: true
+			wrapMode: TextEdit.Wrap
+			onCursorRectangleChanged: flick.ensureVisible(cursorRectangle)
+			text: sText
+		}
+	}
 }

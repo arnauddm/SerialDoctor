@@ -1,63 +1,67 @@
 import QtQuick 2.7
-import QtQuick.Controls 2.3
+import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.3
-import QtQuick.Controls.Styles 1.4
+import QtQuick.Controls 2.3
+import QtQuick.Controls.Material 2.0
 
 Column {
+width: 500
 id: rootLeft
 spacing: 40
 
-    Column {
+property int iPadding: 50
+property alias scan: returnScan.sText
+
+    ColumnLayout {
 		spacing: 10
 		width: parent.width
-        TextEdit {
+
+        TextEditor {
 			anchors.horizontalCenter: parent.horizontalCenter
 			id: returnScan
-			text: qsTr("Here, the scan")
+			width: parent.width
+			height: 125
+			sText: rootLeft.width
         }
 
-        Button {
+		Button {
 			anchors.horizontalCenter: parent.horizontalCenter
-            text: qsTr("Refresh scan")
 			id: refreshScanButton
+			text: qsTr("Refresh")
+			x: (parent.width / 2) - (width / 2)
+		}
 
-			onClicked: {
-				returnScan.text= qsTr("Scanned")
-			}
-        }
     }
 
     Column {
-		spacing: 10
+		spacing: 5
 		anchors.horizontalCenter: parent.horizontalCenter
-        Row {
-			id: portNameRow
-			anchors.horizontalCenter: parent.horizontalCenter
-			spacing: 10
-            Label {
-				id: portNameLabel
-				anchors.verticalCenter: parent.verticalCenter
-                text: qsTr("Port Name")
-            }
+		width: parent.width - iPadding * 2
+		x: iPadding
+		y: iPadding
 
-            TextField {
-				id: portNameTextEdit
-				placeholderText: qsTr("Enter the port name")
-            }
-        }
+		TextField {
+			id: portNameTextEdit
+			anchors.horizontalCenter: parent.horizontalCenter
+			width: parent.width / 2
+			placeholderText: qsTr("Enter port name...")
+		}
 
         Row {
 			id: baudRateRow
 			anchors.horizontalCenter: parent.horizontalCenter
 			spacing: 10
-            Label {
+
+            Text {
 				id: baudRateLabel
 				anchors.verticalCenter: parent.verticalCenter
-                text: qsTr("BaudRate")
+				horizontalAlignment: Text.AlignRight
+               	text: qsTr("BaudRate")
             }
 
             ComboBox {
 				id: baudRateComboBox
+				width: parent.parent.width / 3
 				model: [ "test1" , "test2" ]
             }
         }
@@ -66,14 +70,17 @@ spacing: 40
 			id: parityRow
 			anchors.horizontalCenter: parent.horizontalCenter
 			spacing: 10
-            Label {
+
+            Text {
 				id: parityLabel
 				anchors.verticalCenter: parent.verticalCenter
+				horizontalAlignment: Text.AlignRight
                 text: qsTr("Parity")
             }
 
             ComboBox {
 				id: parityComboBox
+				width: parent.parent.width / 3
 				model: [ "test1" , "test2" ]
             }
         }
@@ -82,14 +89,17 @@ spacing: 40
 			id: flowControlRow
 			anchors.horizontalCenter: parent.horizontalCenter
 			spacing: 10
-            Label {
+
+            Text {
 				id: flowControlLabel
 				anchors.verticalCenter: parent.verticalCenter
+				horizontalAlignment: Text.AlignRight
                 text: qsTr("Flow Control")
             }
 
             ComboBox {
 				id: flowControlComboBox
+				width: parent.parent.width / 3
 				model: [ "test1" , "test2" ]
             }
         }
@@ -98,14 +108,17 @@ spacing: 40
 			id: stopBitsRow
 			anchors.horizontalCenter: parent.horizontalCenter
 			spacing: 10
-            Label {
+
+            Text {
 				id: stopBitsLabel
 				anchors.verticalCenter: parent.verticalCenter
+				horizontalAlignment: Text.AlignRight
                 text: qsTr("Stop Bits")
             }
 
             ComboBox {
 				id: stopBitsComboBox
+				width: parent.parent.width / 3
 				model: [ "test1" , "test2" ]
             }
         }
@@ -114,14 +127,17 @@ spacing: 40
 			id: dataBitsRow
 			anchors.horizontalCenter: parent.horizontalCenter
 			spacing: 10
-            Label {
+
+            Text {
 				id: dataBitsLabel
 				anchors.verticalCenter: parent.verticalCenter
+				horizontalAlignment: Text.AlignRight
                 text: qsTr("Data Bits")
             }
 
             ComboBox {
 				id: dataBitsComboBox
+				width: parent.parent.width / 3
 				model: [ "test1" , "test2" ]
             }
         }
@@ -130,14 +146,17 @@ spacing: 40
 			id: modeRow
 			anchors.horizontalCenter: parent.horizontalCenter
 			spacing: 10
-            Label {
+
+            Text {
 				id: modeLabel
 				anchors.verticalCenter: parent.verticalCenter
+				horizontalAlignment: Text.AlignRight
                 text: qsTr("Mode")
             }
 
             ComboBox {
 				id: modeComboBox
+				width: parent.parent.width  / 3
 				model: [ "test1" , "test2" ]
             }
         }
